@@ -1,0 +1,6 @@
+Package: nrmisc
+Title: Nicola Roberts miscellaneous functions
+Version: 0.1.0
+Authors@R: person("Nicola", "Roberts", email="nr3@sanger.ac.uk", role=c('aut', 'cre'))
+Description: Contains various reusable functions and color palettes for data analysis.
+License: GPL-3
