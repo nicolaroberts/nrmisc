@@ -8,7 +8,7 @@
 #' @param y Second vector, will fill the even elements of the result.
 #'  Must match the type and length of \code{x}
 #'
-#' @return A vector of x and y interleaved.
+#' @return A vector of \code{x} and \code{y} interleaved.
 #'
 #' @export
 #'
