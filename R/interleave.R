@@ -17,6 +17,8 @@
 #' interleave(x=rep(TRUE, 3), y=rep(FALSE, 3))
 
 interleave <- function(x, y){
+    if (is.vector(x) == FALSE) stop("x must be a vector")
+    if (is.vector(y) == FALSE) stop("y must be a vector")
     if (mode(x) != mode(y)) stop("x and y must have the same mode")
     if (length(x) != length(y)) stop("x and y must have the same length")
     ans <- vector(mode=mode(x), length=length(x) + length(y))
