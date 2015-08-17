@@ -14,7 +14,7 @@ May be of any type, e.g. numeric, character, logical, etc.}
  Must match the type and length of \code{x}}
 }
 \value{
-A vector of x and y interleaved.
+A vector of \code{x} and \code{y} interleaved.
 }
 \description{
 Alternatingly interleaves values from two vectors of equal length,
