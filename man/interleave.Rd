@@ -8,17 +8,16 @@ interleave(x, y)
 }
 \arguments{
 \item{x}{First vector, will fill the odd elements of the result.
-May be of any type, e.g. numeric, character, logical, etc.}
+May be of any mode, e.g. numeric, character, logical, etc.}
 
 \item{y}{Second vector, will fill the even elements of the result.
- Must match the type and length of \code{x}}
+ Must match the mode and length of \code{x}}
 }
 \value{
 A vector of \code{x} and \code{y} interleaved.
 }
 \description{
-Alternatingly interleaves values from two vectors of equal length,
-returning the result in a vector of double the length.
+Interleave values from two vectors
 }
 \examples{
 interleave(x=seq(from=1, by=2, length.out=5), y=seq(from=2, by=2, length.out=5))
