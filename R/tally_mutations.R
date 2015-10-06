@@ -11,13 +11,13 @@
 #' @examples
 #' data(ov_tcga, package='SomaticCancerAlterations')
 #' ov_tcga <- ov_tcga[ov_tcga$Variant_Type=="SNP"]
+#' ov_tcga <- ov_tcga[1:1000]
 #' gr <- ov_tcga
 #' S4Vectors::mcols(gr) <- NULL
 #' gr$ref <- ov_tcga$Reference_Allele
 #' gr$alt <- ov_tcga$Tumor_Seq_Allele2
-#' gr$sampleID <- ov_tcga$Sample_ID
+#' gr$sampleID <- as.factor(ov_tcga$Sample_ID)
 #' tally <- tally_mutations_96(gr)
-#' tally[1:10, 1:6]
 tally_mutations_96 <- function(gr){
 
     # check widths all 1
@@ -74,7 +74,14 @@ tally_mutations_96 <- function(gr){
 
     # define classes
     gr$class <- paste(gr$REF, gr$ALT, 'in', gr$context, sep='.')
-    gr$class <- factor(gr$class)
+
+    class_levels <- paste(rep(c("C", "T"), each=48),
+                          rep(c("A", "G", "T", "A", "C", 'G'), each=16),
+                          'in', paste0(rep(rep(bases, each=4), 6),
+                                       rep(c("C", "T"), each=48),
+                                       rep(bases, 24)), sep='.')
+
+    gr$class <- factor(gr$class, levels=class_levels)
 
     # tally mutation classes in each tumour
     tally <- table(gr$sampleID, gr$class)
