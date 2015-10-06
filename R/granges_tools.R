@@ -58,3 +58,25 @@ collapse_granges_by_val <- function(gr, na.rm=TRUE){
 
     return(ans)
 }
+
+
+#' Sample random positions from a GRanges object
+#'
+#' @param gr A GRanges object
+#' @param n Number of positions to sample
+#' @return A GRanges object of n positions uniformly sampled from gr
+#' @import GenomicRanges
+#' @export
+sample_GRanges <- function(gr, n){
+    # randomly sample the ranges, weighted by their width
+    ri <- sample(length(gr), n, replace=TRUE, prob=width(gr))
+    rranges <- gr[ri]
+    # randomly sample positions in those ranges
+    rand <- sapply(width(rranges), sample, size=1)
+    pos <- start(rranges)+rand-1
+    # output
+    ans <- GRanges(seqnames(rranges), IRanges(pos, width=1),
+                   strand='*', seqinfo=seqinfo(gr), mcols(rranges))
+    ans <- sort(ans)
+    return(ans)
+}
