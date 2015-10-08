@@ -11,7 +11,8 @@ Imports:
     S4Vectors,
     GenomeInfoDb,
     BSgenome.Hsapiens.UCSC.hg19,
-    Biostrings
+    Biostrings,
+    ggplot2
 Suggests:
     testthat,
     lintr,
