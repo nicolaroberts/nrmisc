@@ -19,15 +19,4 @@ A matrix of mutation counts with one row per sample and one
 \description{
 Tally mutations in the 96 base substitution classes defined by trinucleotide context
 }
-\examples{
-data(ov_tcga, package='SomaticCancerAlterations')
-ov_tcga <- ov_tcga[ov_tcga$Variant_Type=="SNP"]
-gr <- ov_tcga
-S4Vectors::mcols(gr) <- NULL
-gr$ref <- ov_tcga$Reference_Allele
-gr$alt <- ov_tcga$Tumor_Seq_Allele2
-gr$sampleID <- ov_tcga$Sample_ID
-tally <- tally_mutations_96(gr)
-tally[1:10, 1:6]
-}
 

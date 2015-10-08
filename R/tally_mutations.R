@@ -8,16 +8,6 @@
 #'  column per base substitution class (trinucleotide context)
 #' @import GenomicRanges IRanges S4Vectors GenomeInfoDb BSgenome.Hsapiens.UCSC.hg19 Biostrings
 #' @export
-#' @examples
-#' data(ov_tcga, package='SomaticCancerAlterations')
-#' ov_tcga <- ov_tcga[ov_tcga$Variant_Type=="SNP"]
-#' ov_tcga <- ov_tcga[1:1000]
-#' gr <- ov_tcga
-#' S4Vectors::mcols(gr) <- NULL
-#' gr$ref <- ov_tcga$Reference_Allele
-#' gr$alt <- ov_tcga$Tumor_Seq_Allele2
-#' gr$sampleID <- as.factor(ov_tcga$Sample_ID)
-#' tally <- tally_mutations_96(gr)
 tally_mutations_96 <- function(gr){
 
     # check widths all 1
