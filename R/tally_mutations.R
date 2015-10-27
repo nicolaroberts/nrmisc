@@ -29,6 +29,9 @@ tally_mutations_96 <- function(gr){
     # add seqinfo
     seqinfo(gr) <- seqinfo(genome)
 
+    # resort
+    gr <- sort(gr)
+
     # find the trinuc context of each mutation
     bases <- c("A", "C", "G", "T")
     trinuc_levels <- paste0(rep(bases, each=16), rep(rep(bases, each=4), 4), rep(bases, 16))
