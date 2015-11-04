@@ -27,7 +27,7 @@ tally_mutations_96 <- function(gr){
     gr <- keepSeqlevels(gr, seqlevels(genome)[1:24])
 
     # add seqinfo
-    seqinfo(gr) <- seqinfo(genome)
+    seqinfo(gr) <- seqinfo(genome)[seqlevels(gr)]
 
     # resort
     gr <- sort(gr)
