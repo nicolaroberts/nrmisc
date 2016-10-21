@@ -25,6 +25,7 @@ collapse_granges_by_val <- function(gr, na.rm=TRUE){
 
     gr_gaps <- gaps(gr)
     mcols(gr_gaps)[[colname]] <- NA
+    gr_gaps <- gr_gaps[-which(width(gr_gaps) %in% seqlengths(seqinfo(gr)))]
 
     gr <- c(gr_gaps, gr)
 
