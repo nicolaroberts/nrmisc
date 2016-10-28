@@ -109,7 +109,7 @@ plot_gr_track <- function(gr, track, seqname, start=NULL, end=NULL){
                         pos=interleave(mdata$start, mdata$end),
                         value=rep(mdata[[track]], each=2))
     # plot basics
-    p <- ggplot(data=pdata, aes(x=pos, y=value)) +
+    p <- ggplot(data=pdata, aes_string(x='pos', y='value')) +
         theme(panel.grid=element_blank(), text=element_text(size=16)) +
         scale_x_continuous(name=paste('position on', seqname)) +
         scale_y_continuous(name=track)
