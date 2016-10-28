@@ -4,6 +4,7 @@
 #' @param n Number of colours to return
 #'
 #' @return A vector of n colours
+#' @importFrom grDevices rgb
 #' @seealso \code{\link{col_show}}, \code{\link[grDevices]{colorRamp}}
 #' @export
 #'
@@ -57,6 +58,7 @@ nr_col_pal <- function(palette_name, n){
 #'
 #' @param cols Vector of colours
 #' @seealso \code{\link{nr_col_pal}}
+#' @importFrom graphics plot rect
 #' @export
 #'
 #' @examples
