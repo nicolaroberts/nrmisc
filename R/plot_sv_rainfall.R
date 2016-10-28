@@ -6,31 +6,10 @@
 #' of SV class values that will correspond to plotting colour
 #' @param plot_windows GRanges object of plotting windows to return
 #' @param class_cols Vector of colours to match the factor levels of gpos$class
-#' @return List of ggplot values, one for each plot window (can be added to afterwards)
+#' @return List of ggplot values, one for each plot window (can be added to afterwards) - WIP
 #' @import GenomicRanges ggrepel ggplot2
 #' @importFrom plyr ldply
 #' @export
-# root <- '/Volumes/nfs_home/data/'
-# results_dir <- file.path(root, 'PanCan_SV_calls_lustre/results/2016_10')
-# load(file.path(results_dir, "events_1Sperdonor.RData"))
-# plot_windows <- GRanges(c("chr1", "chr14", "chrX"),
-#             IRanges(start=c(rep(1e6, 2), 229e5), end=c(rep(1.2e6, 2), 230e5)))
-# class_cols <- c("Complex" = "grey60",
-#             "Deletion" = "red",
-#             "Tandem Dup" = "royalblue1",
-#             "Transloc" = "darkorange",
-#             "Foldback" = "forestgreen",
-#             "Inversion" = "hotpink2",
-#             "ShardCycle" = "darkslategray4",
-#             "ShardChain" = "darkslategray2",
-#             "CplxyCycle" = "slateblue4",
-#             "CplxyChain" = "slateblue1",
-#             "DirInv" = "lightgoldenrod2",
-#             "InvDup" = "lightpink",
-#             "DTD" = "lightgreen")
-#
-# ans <- plot_sv_rainfall(gpos, plot_windows, class_cols)
-
 
 plot_sv_rainfall <- function(gpos, plot_windows, class_cols){
 
