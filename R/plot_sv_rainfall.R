@@ -6,12 +6,13 @@
 #' of SV class values that will correspond to plotting colour
 #' @param plot_windows GRanges object of plotting windows to return
 #' @param class_cols Vector of colours to match the factor levels of gpos$class
+#' @param plot_title (Optional) Character vector of plot titles, one for each range in plot_windows
 #' @return List of ggplot values, one for each plot window (can be added to afterwards) - WIP
 #' @import GenomicRanges ggrepel ggplot2
 #' @importFrom plyr ldply
 #' @export
 
-plot_sv_rainfall <- function(gpos, plot_windows, class_cols){
+plot_sv_rainfall <- function(gpos, plot_windows, class_cols, plot_title=NULL){
 
     # check inputs
     if (class(gpos) != "GRanges" | class(plot_windows) != "GRanges") {
@@ -37,6 +38,8 @@ plot_sv_rainfall <- function(gpos, plot_windows, class_cols){
         # overlapping genes
         near_ge <- suppressWarnings(subsetByOverlaps(nrmisc::txs, window))
         near_ge <- unlist(range(near_ge))
+        near_ge <- near_ge[as.character(seqnames(near_ge))==seqnames(window)[1]]
+
 
         # immune loci in plotting window
         near_il <- suppressWarnings(subsetByOverlaps(nrmisc::immune, window))
@@ -83,6 +86,10 @@ plot_sv_rainfall <- function(gpos, plot_windows, class_cols){
             theme(panel.grid.minor=element_blank(), text=element_text(size=14),
                   plot.title=element_text(size=12))
 
+
+        if(!is.null(plot_title)) p.sv <- p.sv + ggtitle(plot_title[i])
+
+
         if(nrow(both)>0){
             p.sv <- p.sv + geom_curve(data=connex, size=0.2,
                                       aes_string(x='ax', xend='bx', y='ay', yend='by',
@@ -91,12 +98,15 @@ plot_sv_rainfall <- function(gpos, plot_windows, class_cols){
         }
 
         if (length(near_ge) > 0) {
+
             gene_exons <- reduce(unlist(nrmisc::exs[names(near_ge)]))
+            gene_exons <- gene_exons[as.character(seqnames(gene_exons))==seqnames(window)[1]]
+
             p.sv <- p.sv +
                 geom_segment(aes(x=start(near_ge), y=-0.5,
                                  xend=end(near_ge), yend=-0.5), size=0.3) +
                 geom_text_repel(aes(label=names(near_ge),
-                                    x=mid(ranges(near_ge)), y=-0.5),
+                                    x=mid(ranges(near_ge)), y=-0.7),
                                 segment.size=0) +
                 geom_segment(aes(x=start(gene_exons), y=-0.5,
                                  xend=end(gene_exons), yend=-0.5), size=5)
