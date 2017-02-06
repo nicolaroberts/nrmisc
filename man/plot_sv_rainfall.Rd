@@ -4,7 +4,7 @@
 \alias{plot_sv_rainfall}
 \title{heading}
 \usage{
-plot_sv_rainfall(gpos, plot_windows, class_cols)
+plot_sv_rainfall(gpos, plot_windows, class_cols, plot_title = NULL)
 }
 \arguments{
 \item{gpos}{GRanges object of SV breakpoint positions (each 'range' is a 1bp position)
@@ -15,11 +15,12 @@ of SV class values that will correspond to plotting colour}
 \item{plot_windows}{GRanges object of plotting windows to return}
 
 \item{class_cols}{Vector of colours to match the factor levels of gpos$class}
+
+\item{plot_title}{(Optional) Character vector of plot titles, one for each range in plot_windows}
 }
 \value{
-List of ggplot values, one for each plot window (can be added to afterwards)
+List of ggplot values, one for each plot window (can be added to afterwards) - WIP
 }
 \description{
 heading
 }
-
