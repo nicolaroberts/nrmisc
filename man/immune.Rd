@@ -12,4 +12,3 @@ immune
 Immune loci genes (hg19)
 }
 \keyword{datasets}
-

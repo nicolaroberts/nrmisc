@@ -20,4 +20,3 @@ plot_gr_track(gr, track, seqname, start = NULL, end = NULL)
 \description{
 Plot one quantitative meta-data track from a GRanges object
 }
-

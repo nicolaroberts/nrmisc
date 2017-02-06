@@ -8,4 +8,3 @@
 \description{
 Nicola Roberts' miscellaneous functions and color palettes.
 }
-

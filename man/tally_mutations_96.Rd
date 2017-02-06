@@ -19,4 +19,3 @@ A matrix of mutation counts with one row per sample and one
 \description{
 Tally mutations in the 96 base substitution classes defined by trinucleotide context
 }
-

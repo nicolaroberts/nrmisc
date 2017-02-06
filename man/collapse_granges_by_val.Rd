@@ -27,4 +27,3 @@ my_gr <- GRanges(c("chr1", "chr1", "chr1", "chr1", "chr2"),
                  value=c(1, 2, 2, 2, 2))
 collapse_granges_by_val(my_gr)
 }
-

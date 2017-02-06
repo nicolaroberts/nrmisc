@@ -19,4 +19,3 @@ col_show(mycol)
 \seealso{
 \code{\link{nr_col_pal}}
 }
-

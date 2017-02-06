@@ -17,4 +17,3 @@ A GRanges object of n positions uniformly sampled from gr
 \description{
 Sample random positions from a GRanges object
 }
-

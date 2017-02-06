@@ -23,4 +23,3 @@ Interleave values from two vectors
 interleave(x=seq(from=1, by=2, length.out=5), y=seq(from=2, by=2, length.out=5))
 interleave(x=rep(TRUE, 3), y=rep(FALSE, 3))
 }
-

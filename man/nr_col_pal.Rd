@@ -24,4 +24,3 @@ col_show(mycol)
 \seealso{
 \code{\link{col_show}}, \code{\link[grDevices]{colorRamp}}
 }
-
