@@ -22,6 +22,16 @@ names(exs) <- gene_name_map$SYMBOL
 names(txs) <- gene_name_map$SYMBOL
 remove(txdb, gene_ids, gene_name_map)
 
+
+# genes in COSMIC (v80) cancer gene census, as downloaded Feb 20 2017
+
+cgc <- read.csv("~/Downloads/Census_allMon Feb 20 12-15-32 2017.csv")
+
+cgc_gene_names <- as.character(cgc$Gene.Symbol)
+
+devtools::use_data(cgc_gene_names, overwrite = TRUE)
+
+
 # save to data/ dir
 devtools::use_data(exs, overwrite=TRUE)
 devtools::use_data(txs, overwrite=TRUE)

@@ -21,3 +21,10 @@ NULL
 #'
 #' @format GRanges
 "exs"
+
+#' Cancer gene census gene names
+#'
+#' COSMIC (v80) cancer gene census, as downloaded Feb 20 2017
+#'
+#' @format character vector
+"cgc_gene_names"
