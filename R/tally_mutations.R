@@ -1,30 +1,34 @@
 #' Tally mutations in the 96 base substitution classes defined by trinucleotide context
 #'
 #' @param gr A GRanges object with ranges of width 1 (variant positions)
-#'  and at least three metadata columns called 'ref' for reference base,
-#'  'alt' for alternate base, and 'sampleID' for sample name.
-#'  Only hg19 chroms chr1-chr22, chrX and chrY are kept.
+#'  and at least three metadata columns for reference base, alternate base,
+#'  and sample name.
+#' @param genome A BSgenome object of the reference genome to use for
+#'  trinucleotide context calculations (e.g. 'BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19')
+#' @param ref Variable name for the reference base column in gr (default 'ref').
+#' @param alt Variable name for the alternative base column in gr (default 'alt').
+#' @param samp Variable name for the sample ID column in gr (default 'sampleID').
 #' @return A matrix of mutation counts with one row per sample and one
 #'  column per base substitution class (trinucleotide context)
-#' @import GenomicRanges IRanges S4Vectors GenomeInfoDb BSgenome.Hsapiens.UCSC.hg19 Biostrings
+#' @import GenomicRanges Biostrings GenomeInfoDb
 #' @export
-tally_mutations_96 <- function(gr){
+tally_mutations_96 <- function(gr, genome, ref='ref', alt='alt', samp='sampleID'){
 
-    # check widths all 1
-    if (any(width(gr) != 1)) stop("all widths must be 1")
+    # check genome is BSgenome object
+    if(class(genome)!='BSgenome') stop('genome must be BSgenome object')
 
-
-    # ensure chrom names start with chr
-    if (all(substr(seqlevels(gr), 1, 3) != "chr")) {
-        gr <- renameSeqlevels(gr, paste0('chr', seqlevels(gr)))
-    } else if (any(substr(seqlevels(gr), 1, 3) != "chr")) {
-        stop("Either ALL or NONE of seqlevels(gr) can start with 'chr'")
+    # check column names of gr
+    if(any(!c(ref, alt, samp) %in% colnames(mcols(gr)))){
+        stop('gr must have three metadata columns with names indicated by ref, alt and samp arguments')
     }
 
-    genome <- BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19
+    # check widths all 1
+    if (any(width(gr) != 1)) stop("all gr widths must be 1")
 
-    # ony keep chr1-chr22, chrX, chrY
-    gr <- keepSeqlevels(gr, seqlevels(genome)[1:24])
+    # ensure gr seqlevels are in reference genome
+    if (any(!seqlevels(gr) %in% seqlevels(genome))){
+        stop("one or more seqlevels(gr) not present in reference genome provided")
+    }
 
     # add seqinfo
     seqinfo(gr) <- seqinfo(genome)[seqlevels(gr)]
@@ -48,18 +52,19 @@ tally_mutations_96 <- function(gr){
     remove(trinuc)
 
     # are there any places where the reference doesn't match up?
-    bad <- which(substr(gr$trinuc, 2, 2) != gr$ref)
+    bad <- which(substr(gr$trinuc, 2, 2) != mcols(gr)[,ref])
     if (length(bad) > 0) {
-        warning(sprintf("%d input positions had 'ref' base not matching hg19 reference - dropped %s", length(bad), paste(bad, collapse=', ')))
+        warning(sprintf("%d input positions had 'ref' base not matching provided reference - dropped %s", length(bad), paste(bad, collapse=', ')))
 
         gr <- gr[-bad]
     }
+    if(length(gr)==0) stop('No gr entries match reference base in genome')
 
     # convert mutations wrt A or G ref base into reverse complement
-    gr$REF <- gr$ref
-    gr$ALT <- gr$alt
+    gr$REF <- mcols(gr)[,ref]
+    gr$ALT <- mcols(gr)[,alt]
     gr$context <- gr$trinuc
-    torc <- which(gr$ref %in% c('A', 'G'))
+    torc <- which(mcols(gr)[,ref] %in% c('A', 'G'))
     gr$REF[torc] <- as.character(reverseComplement(DNAStringSet(gr$REF[torc])))
     gr$ALT[torc] <- as.character(reverseComplement(DNAStringSet(gr$ALT[torc])))
     gr$context[torc] <- as.character(reverseComplement(DNAStringSet(gr$context[torc])))
@@ -77,7 +82,7 @@ tally_mutations_96 <- function(gr){
     gr$class <- factor(gr$class, levels=class_levels)
 
     # tally mutation classes in each tumour
-    tally <- table(gr$sampleID, gr$class)
+    tally <- table(mcols(gr)[,samp], gr$class)
     class(tally) <- "matrix"
 
     return(tally)

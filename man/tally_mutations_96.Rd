@@ -4,13 +4,22 @@
 \alias{tally_mutations_96}
 \title{Tally mutations in the 96 base substitution classes defined by trinucleotide context}
 \usage{
-tally_mutations_96(gr)
+tally_mutations_96(gr, genome, ref = "ref", alt = "alt",
+  samp = "sampleID")
 }
 \arguments{
 \item{gr}{A GRanges object with ranges of width 1 (variant positions)
-and at least three metadata columns called 'ref' for reference base,
-'alt' for alternate base, and 'sampleID' for sample name.
-Only hg19 chroms chr1-chr22, chrX and chrY are kept.}
+and at least three metadata columns for reference base, alternate base,
+and sample name.}
+
+\item{genome}{A BSgenome object of the reference genome to use for
+trinucleotide context calculations (e.g. 'BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19')}
+
+\item{ref}{Variable name for the reference base column in gr (default 'ref').}
+
+\item{alt}{Variable name for the alternative base column in gr (default 'alt').}
+
+\item{samp}{Variable name for the sample ID column in gr (default 'sampleID').}
 }
 \value{
 A matrix of mutation counts with one row per sample and one
