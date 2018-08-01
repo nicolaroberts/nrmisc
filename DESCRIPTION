@@ -1,6 +1,6 @@
 Package: nrmisc
 Title: Nicola Roberts miscellaneous functions
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: person("Nicola", "Roberts", email="nr3@sanger.ac.uk", role=c('aut', 'cre'))
 Description: Contains various reusable functions and colour palettes, written as
     needed.
@@ -11,10 +11,9 @@ LazyData: true
 Imports:
     GenomicRanges,
     IRanges,
-    S4Vectors,
-    GenomeInfoDb,
-    BSgenome.Hsapiens.UCSC.hg19,
     Biostrings,
+    GenomeInfoDb,
+    S4Vectors,
     ggplot2,
     ggrepel,
     scales,
@@ -25,4 +24,4 @@ Suggests:
     testthat,
     lintr,
     SomaticCancerAlterations
-RoxygenNote: 6.0.0
+RoxygenNote: 6.1.0

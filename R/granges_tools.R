@@ -5,7 +5,7 @@
 #'  If FALSE, ranges with NA are retained AND gaps between ranges are returned (also with NA)
 #' @return A GRanges object where consecutive ranges with the same meta-data
 #'  value are collapsed together
-#' @import GenomicRanges IRanges
+#' @import GenomicRanges IRanges GenomeInfoDb S4Vectors
 #' @export
 #' @examples
 #' library(GenomicRanges)
